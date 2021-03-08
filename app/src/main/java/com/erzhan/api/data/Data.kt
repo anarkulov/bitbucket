@@ -1,4 +1,4 @@
-package com.erzhan.api
+package com.erzhan.api.data
 
 data class Data(
     val id: Int,

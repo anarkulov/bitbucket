@@ -1,4 +1,4 @@
-package com.erzhan.api
+package com.erzhan.api.activities
 
 import android.os.Bundle
 import android.widget.*
@@ -9,13 +9,17 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.erzhan.api.R
+import com.erzhan.api.adapter.ApiAdapter
+import com.erzhan.api.data.Data
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.ArrayList
 
-class JokesActivity : AppCompatActivity() {
+class JokeActivity : AppCompatActivity() {
     private lateinit var networkRequestQueue: RequestQueue
     private lateinit var recyclerView: RecyclerView
+    private lateinit var refreshButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         networkRequestQueue = Volley.newRequestQueue(this)
@@ -23,17 +27,22 @@ class JokesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_jokes)
 
         recyclerView = findViewById(R.id.recyclerViewId)
+        refreshButton = findViewById(R.id.refreshButtonId)
+        refreshButton.setOnClickListener{
+            loadData()
+        }
 
         loadData()
     }
 
     private fun loadData() {
-        val url = "https://official-joke-api.appspot.com/jokes/ten"
-        val jsonObjectRequest = JsonArrayRequest(Request.Method.GET, url, null,
+        val url = "https://official-joke-api.appspot.com/random_ten"
+        val jsonObjectRequest = JsonArrayRequest(
+            Request.Method.GET, url, null,
             { response ->
                 val list = ArrayList<Data>()
-                var items : JSONObject
-                for (i in 0 until response.length()){
+                var items: JSONObject
+                for (i in 0 until response.length()) {
 
                     try {
                         items = response.getJSONObject(i)
@@ -47,7 +56,7 @@ class JokesActivity : AppCompatActivity() {
                         list.add(item)
 
                     } catch (e: JSONException) {
-                        reportError(e.toString())
+                        reportError("Failed to load data. $e")
                     }
                 }
                 recyclerView.adapter = ApiAdapter(list)

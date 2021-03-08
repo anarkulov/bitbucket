@@ -1,10 +1,12 @@
-package com.erzhan.api
+package com.erzhan.api.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.erzhan.api.data.Data
+import com.erzhan.api.R
 
 class ApiAdapter(private val itemList: List<Data>) : RecyclerView.Adapter<ApiAdapter.ApiViewHolder>(){
 
