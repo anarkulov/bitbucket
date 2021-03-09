@@ -1,14 +1,15 @@
 package com.erzhan.api.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.erzhan.api.data.Data
+import com.erzhan.api.data.DataModel
 import com.erzhan.api.R
 
-class ApiAdapter(private val itemList: List<Data>) : RecyclerView.Adapter<ApiAdapter.ApiViewHolder>(){
+class ApiAdapter(private val itemList: List<DataModel>) : RecyclerView.Adapter<ApiAdapter.ApiViewHolder>(){
 
     class ApiViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val textView1 : TextView = itemView.findViewById(R.id.textViewItem1Id)
