@@ -5,6 +5,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.erzhan.api.R
@@ -18,6 +19,7 @@ class JokeActivity : AppCompatActivity(),  MyInterface.DataView {
     private lateinit var networkRequestQueue: RequestQueue
     private lateinit var recyclerView: RecyclerView
     private lateinit var refreshButton: Button
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     private lateinit var presenter: MyPresenter
 
@@ -28,20 +30,26 @@ class JokeActivity : AppCompatActivity(),  MyInterface.DataView {
 
         presenter = MyPresenter(this, networkRequestQueue)
 
+        swipeRefresh = findViewById(R.id.swipeRefreshId)
+        swipeRefresh.setOnRefreshListener {
+            dataView()
+            swipeRefresh.isRefreshing = false
+        }
         recyclerView = findViewById(R.id.recyclerViewId)
         refreshButton = findViewById(R.id.refreshButtonId)
         refreshButton.setOnClickListener{
-            initView()
+            dataView()
+
         }
-        initView()
+        dataView()
     }
 
-    private fun initView() {
+    private fun dataView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
-        presenter.getData()
+        presenter.loadData()
     }
 
-    override fun getDataFromPresenter(value: ArrayList<DataModel>) {
+    override fun getData(value: ArrayList<DataModel>) {
         val myAdapter = ApiAdapter(value)
         recyclerView.adapter = myAdapter
     }

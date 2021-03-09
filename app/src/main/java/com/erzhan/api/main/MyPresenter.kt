@@ -10,20 +10,20 @@ import org.json.JSONObject
 class MyPresenter(view: MyInterface.DataView, var networkRequestQueue: RequestQueue) : MyInterface.Presenter {
     private var dataView: MyInterface.DataView = view
     private lateinit var model: DataModel
-    private val list = ArrayList<DataModel>()
+    private var list = ArrayList<DataModel>()
 
     init {
-        loadData()
+        requestData()
     }
 
-    private fun loadData() {
+    private fun requestData() {
         val url = "https://official-joke-api.appspot.com/random_ten"
         val jsonObjectRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
+                list = ArrayList()
                 var items: JSONObject
                 for (i in 0 until response.length()) {
-
                     try {
                         items = response.getJSONObject(i)
 
@@ -49,9 +49,9 @@ class MyPresenter(view: MyInterface.DataView, var networkRequestQueue: RequestQu
         networkRequestQueue.add(jsonObjectRequest)
     }
 
-    override fun getData() {
-        loadData()
-        dataView.getDataFromPresenter(list)
+    override fun loadData() {
+        requestData()
+        dataView.getData(list)
     }
 
     private fun reportError(message: String) {

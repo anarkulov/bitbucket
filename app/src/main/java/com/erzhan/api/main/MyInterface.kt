@@ -4,11 +4,11 @@ import com.erzhan.api.data.DataModel
 
 interface MyInterface {
     interface DataView {
-        fun getDataFromPresenter(value: ArrayList<DataModel>)
+        fun getData(value: ArrayList<DataModel>)
     }
 
     interface Presenter {
-        fun getData()
+        fun loadData()
     }
 
     interface ModelInterface {
