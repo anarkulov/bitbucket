@@ -2,7 +2,7 @@ package com.erzhan.api.main
 
 import com.erzhan.api.data.DataModel
 
-interface MainContract {
+interface MyInterface {
     interface DataView {
         fun getDataFromPresenter(value: ArrayList<DataModel>)
     }

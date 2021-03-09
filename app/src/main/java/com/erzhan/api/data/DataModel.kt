@@ -1,13 +1,13 @@
 package com.erzhan.api.data
 
-import com.erzhan.api.main.MainContract
+import com.erzhan.api.main.MyInterface
 
 class DataModel(
     var id: Int,
     var type: String,
     var setup: String,
     var punchline: String
-    ) : MainContract.ModelInterface
+    ) : MyInterface.ModelInterface
 {
     private var list = ArrayList<DataModel>()
 

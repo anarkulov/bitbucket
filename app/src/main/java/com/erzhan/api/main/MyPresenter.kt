@@ -7,8 +7,8 @@ import com.android.volley.RequestQueue
 import org.json.JSONException
 import org.json.JSONObject
 
-class MainPresenter(view: MainContract.DataView, var networkRequestQueue: RequestQueue) : MainContract.Presenter {
-    private var dataView: MainContract.DataView = view
+class MyPresenter(view: MyInterface.DataView, var networkRequestQueue: RequestQueue) : MyInterface.Presenter {
+    private var dataView: MyInterface.DataView = view
     private lateinit var model: DataModel
     private val list = ArrayList<DataModel>()
 
@@ -16,7 +16,7 @@ class MainPresenter(view: MainContract.DataView, var networkRequestQueue: Reques
         loadData()
     }
 
-    fun loadData() {
+    private fun loadData() {
         val url = "https://official-joke-api.appspot.com/random_ten"
         val jsonObjectRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
